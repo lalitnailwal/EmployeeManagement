@@ -25,51 +25,35 @@ namespace EmployeeManagement
         {
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        //public void Configure(IApplicationBuilder app, IHostingEnvironment env)
-        //{
-        //    if (env.IsDevelopment())
-        //    {
-        //        app.UseDeveloperExceptionPage();
-        //    }
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        {           
 
-        //    app.Use(async (context, next) =>
-        //    {
-        //        //await context.Response.WriteAsync("Hello World!");
-        //        //await context.Response.WriteAsync(System.Diagnostics.Process.GetCurrentProcess().ProcessName);
-        //        //await context.Response.WriteAsync(_config["mykey"]);
-        //        await context.Response.WriteAsync("one");
-        //        await next();
-        //    });
-
-        //    app.Run(async (context) =>
-        //    {
-        //        await context.Response.WriteAsync("two");
-        //    });
-        //}
-
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env,
-            ILogger<Startup> logger) 
-        {
-
-            app.Use(async (context, next) =>
+            if (env.IsDevelopment())
             {
-                logger.LogInformation("MW1: Incoming Request");
-                await next();
-                logger.LogInformation("MW1: Outgoing Response");
-            });
+                DeveloperExceptionPageOptions developerExceptionPageOptions = new DeveloperExceptionPageOptions
+                {
+                    SourceCodeLineCount = 10
+                };
 
-            app.Use(async (context, next) =>
-            {
-                logger.LogInformation("MW2: Incoming Request");
-                await next();
-                logger.LogInformation("MW2: Outgoing Response");
-            });
+                app.UseDeveloperExceptionPage(developerExceptionPageOptions);
+            }
+
+            //DefaultFilesOptions defaultFilesOptions = new DefaultFilesOptions();
+            //defaultFilesOptions.DefaultFileNames.Clear();
+            //defaultFilesOptions.DefaultFileNames.Add("foo.html");
+            //app.UseDefaultFiles(defaultFilesOptions);
+            //app.UseStaticFiles();
+
+            //FileServerOptions fileServerOptions = new FileServerOptions();
+            //fileServerOptions.DefaultFilesOptions.DefaultFileNames.Clear();
+            //fileServerOptions.DefaultFilesOptions.DefaultFileNames.Add("foo.html");
+            //app.UseFileServer(fileServerOptions);
+
 
             app.Run(async (context) =>
             {
-                await context.Response.WriteAsync("MW3: Request Handled and Response produced");
-                logger.LogInformation("MW3: Request Handled and Response produced");
+                //throw new Exception("Some error processing the request");
+                await context.Response.WriteAsync("Hosting Environment: " + env.EnvironmentName);
             });
         }
     }
