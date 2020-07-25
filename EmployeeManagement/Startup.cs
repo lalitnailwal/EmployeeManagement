@@ -23,38 +23,18 @@ namespace EmployeeManagement
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMvc();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
-        {           
-
+        {
             if (env.IsDevelopment())
             {
-                DeveloperExceptionPageOptions developerExceptionPageOptions = new DeveloperExceptionPageOptions
-                {
-                    SourceCodeLineCount = 10
-                };
-
-                app.UseDeveloperExceptionPage(developerExceptionPageOptions);
+                app.UseDeveloperExceptionPage();
             }
-
-            //DefaultFilesOptions defaultFilesOptions = new DefaultFilesOptions();
-            //defaultFilesOptions.DefaultFileNames.Clear();
-            //defaultFilesOptions.DefaultFileNames.Add("foo.html");
-            //app.UseDefaultFiles(defaultFilesOptions);
-            //app.UseStaticFiles();
-
-            //FileServerOptions fileServerOptions = new FileServerOptions();
-            //fileServerOptions.DefaultFilesOptions.DefaultFileNames.Clear();
-            //fileServerOptions.DefaultFilesOptions.DefaultFileNames.Add("foo.html");
-            //app.UseFileServer(fileServerOptions);
-
-
-            app.Run(async (context) =>
-            {
-                //throw new Exception("Some error processing the request");
-                await context.Response.WriteAsync("Hosting Environment: " + env.EnvironmentName);
-            });
+          
+            app.UseStaticFiles();
+            app.UseMvcWithDefaultRoute();            
         }
     }
 }
