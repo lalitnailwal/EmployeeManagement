@@ -17,13 +17,18 @@ namespace EmployeeManagement.Controllers
         {
             this._employeeRepository = employeeRepository;
         }
-
+        
+        [Route("")]
+        [Route("Home")]
+        [Route("Home/Index")]
         public ViewResult Index()
         {
             var model =_employeeRepository.GetAllEmployees();
             return View(model);
         }
 
+        //[Route("Home/Details")]
+        [Route("Home/Details/{id?}")]
         public ViewResult Details(int? Id)
         {
             HomeDetailsViewModel homeDetailsViewModel = new HomeDetailsViewModel()
