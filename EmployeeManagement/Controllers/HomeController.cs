@@ -8,8 +8,7 @@ using System.Threading.Tasks;
 
 
 namespace EmployeeManagement.Controllers
-{
-    [Route("[controller]/[action]")]
+{    
     public class HomeController : Controller
     {
         private readonly IEmployeeRepository _employeeRepository;
@@ -18,17 +17,13 @@ namespace EmployeeManagement.Controllers
         {
             this._employeeRepository = employeeRepository;
         }
-
-        [Route("~/Home")]
-        [Route("")]
-        [Route("~/")] // Makes List(), the default action
+       
         public ViewResult Index()
         {
             var model =_employeeRepository.GetAllEmployees();
             return View(model);
         }
-
-        [Route("{id?}")]
+      
         public ViewResult Details(int? Id)
         {
             HomeDetailsViewModel homeDetailsViewModel = new HomeDetailsViewModel()
@@ -38,6 +33,11 @@ namespace EmployeeManagement.Controllers
             };
 
             return View(homeDetailsViewModel);
+        }
+
+        public ViewResult Create()
+        {
+            return View();
         }
     }
 }
