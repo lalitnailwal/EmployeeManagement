@@ -12,7 +12,6 @@ namespace EmployeeManagement.Controllers
     public class HomeController : Controller
     {
         private readonly IEmployeeRepository _employeeRepository;
-
         public HomeController(IEmployeeRepository employeeRepository)
         {
             this._employeeRepository = employeeRepository;
@@ -24,6 +23,7 @@ namespace EmployeeManagement.Controllers
             return View(model);
         }
       
+
         public ViewResult Details(int? id)
         {
             HomeDetailsViewModel homeDetailsViewModel = new HomeDetailsViewModel()
@@ -34,6 +34,7 @@ namespace EmployeeManagement.Controllers
 
             return View(homeDetailsViewModel);
         }
+
 
         [HttpGet]
         public ViewResult Create()
