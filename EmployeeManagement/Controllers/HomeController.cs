@@ -31,10 +31,20 @@ namespace EmployeeManagement.Controllers
 
         public ViewResult Details(int? id)
         {
+            throw new Exception("Error in Details View"); 
+
+            Employee employee = _employeeRepository.GetEmployee(id.Value);
+
+            if (employee == null)
+            {
+                Response.StatusCode = 404;
+                return View("EmployeeNotFound", id);
+            }
+
             HomeDetailsViewModel homeDetailsViewModel = new HomeDetailsViewModel()
             {
                 PageTitle = "Employee Details",
-                Employee = _employeeRepository.GetEmployee(id??1)
+                Employee = employee
             };
 
             return View(homeDetailsViewModel);
